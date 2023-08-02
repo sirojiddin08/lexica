@@ -21,6 +21,8 @@ bot.start(async (ctx) => {
             model: "lexica-aperture-v2"
         });
 
+        console.log(data.images[0]);
+
         const images = [
             { type: 'photo', media: `https://image.lexica.art/md2/${data.images[0].id}` },
             { type: 'photo', media: `https://image.lexica.art/md2/${data.images[1].id}` },
@@ -122,7 +124,7 @@ bot.on('message', async (ctx) => {
             const document = message.document;
             const documentFileId = document.file_id;
             const documentFile = await ctx.telegram.getFile(documentFileId);
-    
+
             // Get the download link for the document
             const documentUrl = `https://api.telegram.org/file/bot6380374685:AAESXp51XC-DjO-vANd5XES4nivDvQCWGFM/${documentFile.file_path}`;
             const { data } = await axios.post('https://lexica.art/api/infinite-prompts', {
