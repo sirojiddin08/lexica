@@ -13,6 +13,7 @@ bot.start(async (ctx) => {
     try {
         await ctx.reply("Rasm generatsiya qilinmoqda...")
 
+        console.log('asfdsf');
         const { data } = await axios.post('https://lexica.art/api/infinite-prompts', {
             text: "",
             searchMode: "images",
