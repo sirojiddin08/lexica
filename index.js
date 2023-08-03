@@ -12,16 +12,13 @@ let nextCursor = 0;
 bot.start(async (ctx) => {
     try {
         await ctx.reply("Rasm generatsiya qilinmoqda...")
-
-        const resda = await axios.post('https://api.telegram.org/file/bot6380374685:AAESXp51XC-DjO-vANd5XES4nivDvQCWGFM/documents/file_3.jpg')
-        console.log(resda.data);
-        // const { data } = await axios.post('https://lexica.art/api/infinite-prompts', {
-        //     text: "",
-        //     searchMode: "images",
-        //     source: "search",
-        //     cursor: nextCursor,
-        //     model: "lexica-aperture-v2"
-        // });
+        const { data } = await axios.post('https://lexica.art/api/infinite-prompts', {
+            text: "",
+            searchMode: "images",
+            source: "search",
+            cursor: nextCursor,
+            model: "lexica-aperture-v2"
+        });
 
         console.log(data.images[0]);
 
@@ -39,12 +36,6 @@ bot.start(async (ctx) => {
         ];
 
         await ctx.replyWithMediaGroup(images);
-
-        console.log(data.images.length, nextCursor);
-
-        // await ctx.telegram.deleteMessage(ctx.session.previousChatId, ctx.session.previousMessageId);
-        // ctx.session.previousMessageId = replyMessage.message_id;
-        // ctx.session.previousChatId = ctx.chat.id;
     } catch (error) {
         ctx.reply(error.message);
     }
@@ -156,6 +147,10 @@ bot.on('message', async (ctx) => {
             ctx.reply('Error uploading photo. Please try again later.');
         }
     }
+
+    // await ctx.telegram.deleteMessage(ctx.session.previousChatId, ctx.session.previousMessageId);
+    // ctx.session.previousMessageId = replyMessage.message_id;
+    // ctx.session.previousChatId = ctx.chat.id;
 });
 
 
