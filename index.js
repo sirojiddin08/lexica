@@ -9,7 +9,7 @@ bot.use(session());
 let nextCursor = 0;
 bot.start(async (ctx) => {
     try {
-        await ctx.reply("Rasm generatsiya qilinmoqda...")
+        await ctx.reply("Ushbu bot sizga matnlaringiz uchun rasm chizib beradi, yoki shunchaki rasm yuboring va u sizga mos tarzda rasm qaytaradi!")
         const { data } = await axios.post('https://lexica.art/api/infinite-prompts', {
             text: "",
             searchMode: "images",
