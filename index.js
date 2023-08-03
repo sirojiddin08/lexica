@@ -70,6 +70,7 @@ bot.on('message', async (ctx) => {
     // Check if the message has a photo
     if (message.photo) {
         try {
+            await ctx.reply("Rasm generatsiya qilinmoqda...")
             // Handle the photo
             const photo = message.photo;
             // 'photo' is an array of photo sizes, where the last item has the highest resolution
@@ -109,6 +110,7 @@ bot.on('message', async (ctx) => {
     // Check if the message has a document
     if (message.document) {
         try {
+            await ctx.reply("Rasm generatsiya qilinmoqda...")
             const document = message.document;
             const documentFileId = document.file_id;
             const documentFile = await ctx.telegram.getFile(documentFileId);
