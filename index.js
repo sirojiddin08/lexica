@@ -1,52 +1,37 @@
 const { Telegraf, session } = require('telegraf');
+const axios = require('axios');
 const { Pagination } = require('telegraf-pagination');
 
 const bot = new Telegraf('6380374685:AAESXp51XC-DjO-vANd5XES4nivDvQCWGFM');
 bot.use(session());
 
+
 let nextCursor = 0;
-
-// Function to make a POST request using Fetch API
-const makePostRequest = async (url, body) => {
-    try {
-        const response = await fetch(url, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(body),
-        });
-
-        if (!response.ok) {
-            throw new Error(`Request failed with status: ${response.status}`);
-        }
-
-        return response.json();
-    } catch (error) {
-        throw new Error(`Fetch error: ${error.message}`);
-    }
-};
-
 bot.start(async (ctx) => {
     try {
-        await ctx.reply("Rasm generatsiya qilinmoqda...");
-
-        const body = {
+        await ctx.reply("Rasm generatsiya qilinmoqda...")
+        const { data } = await axios.post('https://lexica.art/api/infinite-prompts', {
             text: "",
             searchMode: "images",
             source: "search",
             cursor: nextCursor,
-            model: "lexica-aperture-v2",
-        };
-
-        const data = await makePostRequest('https://lexica.art/api/infinite-prompts', body);
+            model: "lexica-aperture-v2"
+        });
 
         console.log(data.images[0]);
 
-        const images = data.images.slice(0, 10).map((image) => ({
-            type: 'photo',
-            media: `https://image.lexica.art/md2/${image.id}`,
-        }));
+        const images = [
+            { type: 'photo', media: `https://image.lexica.art/md2/${data.images[0].id}` },
+            { type: 'photo', media: `https://image.lexica.art/md2/${data.images[1].id}` },
+            { type: 'photo', media: `https://image.lexica.art/md2/${data.images[2].id}` },
+            { type: 'photo', media: `https://image.lexica.art/md2/${data.images[3].id}` },
+            { type: 'photo', media: `https://image.lexica.art/md2/${data.images[4].id}` },
+            { type: 'photo', media: `https://image.lexica.art/md2/${data.images[5].id}` },
+            { type: 'photo', media: `https://image.lexica.art/md2/${data.images[6].id}` },
+            { type: 'photo', media: `https://image.lexica.art/md2/${data.images[7].id}` },
+            { type: 'photo', media: `https://image.lexica.art/md2/${data.images[8].id}` },
+            { type: 'photo', media: `https://image.lexica.art/md2/${data.images[9].id}` }
+        ];
 
         await ctx.replyWithMediaGroup(images);
     } catch (error) {
@@ -57,21 +42,27 @@ bot.start(async (ctx) => {
 bot.on('message', async (ctx) => {
     const message = ctx.message;
     if (message.text && message.text.charAt(0) != '/') {
-        await ctx.replyWithHTML(`Ushbu <b>${message.text}</b> so'z uchun rasm generatsiya qilinmoqda...`);
-        const body = {
+        await ctx.replyWithHTML(`Ushbu <b>${message.text}</b> so'z uchun rasm generatsiya qilinmoqda...`)
+        const { data } = await axios.post('https://lexica.art/api/infinite-prompts', {
             text: message.text,
             searchMode: "images",
             source: "search",
             cursor: 50,
-            model: "lexica-aperture-v2",
-        };
+            model: "lexica-aperture-v2"
+        });
 
-        const data = await makePostRequest('https://lexica.art/api/infinite-prompts', body);
-
-        const images = data.images.slice(0, 10).map((image) => ({
-            type: 'photo',
-            media: `https://image.lexica.art/md2/${image.id}`,
-        }));
+        const images = [
+            { type: 'photo', media: `https://image.lexica.art/md2/${data.images[0].id}` },
+            { type: 'photo', media: `https://image.lexica.art/md2/${data.images[1].id}` },
+            { type: 'photo', media: `https://image.lexica.art/md2/${data.images[2].id}` },
+            { type: 'photo', media: `https://image.lexica.art/md2/${data.images[3].id}` },
+            { type: 'photo', media: `https://image.lexica.art/md2/${data.images[4].id}` },
+            { type: 'photo', media: `https://image.lexica.art/md2/${data.images[5].id}` },
+            { type: 'photo', media: `https://image.lexica.art/md2/${data.images[6].id}` },
+            { type: 'photo', media: `https://image.lexica.art/md2/${data.images[7].id}` },
+            { type: 'photo', media: `https://image.lexica.art/md2/${data.images[8].id}` },
+            { type: 'photo', media: `https://image.lexica.art/md2/${data.images[9].id}` }
+        ];
 
         await ctx.replyWithMediaGroup(images);
     }
@@ -87,23 +78,28 @@ bot.on('message', async (ctx) => {
 
             // Get the download link for the photo
             const photoUrl = `https://api.telegram.org/file/bot6380374685:AAESXp51XC-DjO-vANd5XES4nivDvQCWGFM/${photoFile.file_path}`;
-
-            const body = {
+            const { data } = await axios.post('https://lexica.art/api/infinite-prompts', {
                 text: photoUrl,
                 searchMode: "images",
                 source: "search",
                 cursor: 50,
-                model: "lexica-aperture-v2",
-            };
+                model: "lexica-aperture-v2"
+            });
 
-            const data = await makePostRequest('https://lexica.art/api/infinite-prompts', body);
-
-            const images = data.images.slice(0, 10).map((image) => ({
-                type: 'photo',
-                media: `https://image.lexica.art/md2/${image.id}`,
-            }));
-
+            const images = [
+                { type: 'photo', media: `https://image.lexica.art/md2/${data.images[0].id}` },
+                { type: 'photo', media: `https://image.lexica.art/md2/${data.images[1].id}` },
+                { type: 'photo', media: `https://image.lexica.art/md2/${data.images[2].id}` },
+                { type: 'photo', media: `https://image.lexica.art/md2/${data.images[3].id}` },
+                { type: 'photo', media: `https://image.lexica.art/md2/${data.images[4].id}` },
+                { type: 'photo', media: `https://image.lexica.art/md2/${data.images[5].id}` },
+                { type: 'photo', media: `https://image.lexica.art/md2/${data.images[6].id}` },
+                { type: 'photo', media: `https://image.lexica.art/md2/${data.images[7].id}` },
+                { type: 'photo', media: `https://image.lexica.art/md2/${data.images[8].id}` },
+                { type: 'photo', media: `https://image.lexica.art/md2/${data.images[9].id}` }
+            ];
             await ctx.replyWithMediaGroup(images);
+
         } catch (error) {
             console.error('Error:', error.message);
             ctx.reply('Error uploading photo. Please try again later.');
@@ -119,23 +115,28 @@ bot.on('message', async (ctx) => {
 
             // Get the download link for the document
             const documentUrl = `https://api.telegram.org/file/bot6380374685:AAESXp51XC-DjO-vANd5XES4nivDvQCWGFM/${documentFile.file_path}`;
-
-            const body = {
+            const { data } = await axios.post('https://lexica.art/api/infinite-prompts', {
                 text: documentUrl,
                 searchMode: "images",
                 source: "search",
                 cursor: 50,
-                model: "lexica-aperture-v2",
-            };
+                model: "lexica-aperture-v2"
+            });
 
-            const data = await makePostRequest('https://lexica.art/api/infinite-prompts', body);
-
-            const images = data.images.slice(0, 10).map((image) => ({
-                type: 'photo',
-                media: `https://image.lexica.art/md2/${image.id}`,
-            }));
-
+            const images = [
+                { type: 'photo', media: `https://image.lexica.art/md2/${data.images[0].id}` },
+                { type: 'photo', media: `https://image.lexica.art/md2/${data.images[1].id}` },
+                { type: 'photo', media: `https://image.lexica.art/md2/${data.images[2].id}` },
+                { type: 'photo', media: `https://image.lexica.art/md2/${data.images[3].id}` },
+                { type: 'photo', media: `https://image.lexica.art/md2/${data.images[4].id}` },
+                { type: 'photo', media: `https://image.lexica.art/md2/${data.images[5].id}` },
+                { type: 'photo', media: `https://image.lexica.art/md2/${data.images[6].id}` },
+                { type: 'photo', media: `https://image.lexica.art/md2/${data.images[7].id}` },
+                { type: 'photo', media: `https://image.lexica.art/md2/${data.images[8].id}` },
+                { type: 'photo', media: `https://image.lexica.art/md2/${data.images[9].id}` }
+            ];
             await ctx.replyWithMediaGroup(images);
+
         } catch (error) {
             console.error('Error:', error.message);
             ctx.reply('Error uploading photo. Please try again later.');
@@ -149,7 +150,7 @@ bot.on('message', async (ctx) => {
 
 bot.catch(err => {
     console.log(err.message);
-});
+})
 
 try {
     bot.launch();
