@@ -21,22 +21,8 @@ bot.start(async (ctx) => {
             model: "lexica-aperture-v2"
         });
 
-        console.log(data.images[0]);
-
-        const images = [
-            { type: 'photo', media: `https://image.lexica.art/md2/${data.images[0].id}` },
-            { type: 'photo', media: `https://image.lexica.art/md2/${data.images[1].id}` },
-            { type: 'photo', media: `https://image.lexica.art/md2/${data.images[2].id}` },
-            { type: 'photo', media: `https://image.lexica.art/md2/${data.images[3].id}` },
-            { type: 'photo', media: `https://image.lexica.art/md2/${data.images[4].id}` },
-            { type: 'photo', media: `https://image.lexica.art/md2/${data.images[5].id}` },
-            { type: 'photo', media: `https://image.lexica.art/md2/${data.images[6].id}` },
-            { type: 'photo', media: `https://image.lexica.art/md2/${data.images[7].id}` },
-            { type: 'photo', media: `https://image.lexica.art/md2/${data.images[8].id}` },
-            { type: 'photo', media: `https://image.lexica.art/md2/${data.images[9].id}` }
-        ];
-
-        await ctx.replyWithMediaGroup(images);
+        globalPhotos = data.images.map(elm => ({ type: 'photo', media: `https://image.lexica.art/md2/${elm.id}` }));
+        const replyPhoto = await ctx.replyWithMediaGroup(globalPhotos.slice(0, 10));
     } catch (error) {
         ctx.reply(error.message);
     }
@@ -55,7 +41,7 @@ bot.on('message', async (ctx) => {
         });
 
         globalPhotos = data.images.map(elm => ({ type: 'photo', media: `https://image.lexica.art/md2/${elm.id}` }));
-        const replyPhoto = await ctx.replyWithMediaGroup(globalPhotos.slice(startImage, numberImage));
+        const replyPhoto = await ctx.replyWithMediaGroup(globalPhotos.slice(0, 10));
 
         // await ctx.replyWithHTML(`<b>Natijalar ${startImage + 1} - ${numberImage} gacha. Jami ${data.images.length} ta dan</b>`, {
         //     reply_markup: {
@@ -93,19 +79,8 @@ bot.on('message', async (ctx) => {
                 model: "lexica-aperture-v2"
             });
 
-            const images = [
-                { type: 'photo', media: `https://image.lexica.art/md2/${data.images[0].id}` },
-                { type: 'photo', media: `https://image.lexica.art/md2/${data.images[1].id}` },
-                { type: 'photo', media: `https://image.lexica.art/md2/${data.images[2].id}` },
-                { type: 'photo', media: `https://image.lexica.art/md2/${data.images[3].id}` },
-                { type: 'photo', media: `https://image.lexica.art/md2/${data.images[4].id}` },
-                { type: 'photo', media: `https://image.lexica.art/md2/${data.images[5].id}` },
-                { type: 'photo', media: `https://image.lexica.art/md2/${data.images[6].id}` },
-                { type: 'photo', media: `https://image.lexica.art/md2/${data.images[7].id}` },
-                { type: 'photo', media: `https://image.lexica.art/md2/${data.images[8].id}` },
-                { type: 'photo', media: `https://image.lexica.art/md2/${data.images[9].id}` }
-            ];
-            await ctx.replyWithMediaGroup(images);
+            globalPhotos = data.images.map(elm => ({ type: 'photo', media: `https://image.lexica.art/md2/${elm.id}` }));
+            const replyPhoto = await ctx.replyWithMediaGroup(globalPhotos.slice(0, 10));
 
         } catch (error) {
             console.error('Error:', error.message);
@@ -131,19 +106,8 @@ bot.on('message', async (ctx) => {
                 model: "lexica-aperture-v2"
             });
 
-            const images = [
-                { type: 'photo', media: `https://image.lexica.art/md2/${data.images[0].id}` },
-                { type: 'photo', media: `https://image.lexica.art/md2/${data.images[1].id}` },
-                { type: 'photo', media: `https://image.lexica.art/md2/${data.images[2].id}` },
-                { type: 'photo', media: `https://image.lexica.art/md2/${data.images[3].id}` },
-                { type: 'photo', media: `https://image.lexica.art/md2/${data.images[4].id}` },
-                { type: 'photo', media: `https://image.lexica.art/md2/${data.images[5].id}` },
-                { type: 'photo', media: `https://image.lexica.art/md2/${data.images[6].id}` },
-                { type: 'photo', media: `https://image.lexica.art/md2/${data.images[7].id}` },
-                { type: 'photo', media: `https://image.lexica.art/md2/${data.images[8].id}` },
-                { type: 'photo', media: `https://image.lexica.art/md2/${data.images[9].id}` }
-            ];
-            await ctx.replyWithMediaGroup(images);
+            globalPhotos = data.images.map(elm => ({ type: 'photo', media: `https://image.lexica.art/md2/${elm.id}` }));
+            const replyPhoto = await ctx.replyWithMediaGroup(globalPhotos.slice(0, 10));
 
         } catch (error) {
             console.error('Error:', error.message);
